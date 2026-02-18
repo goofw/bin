@@ -3,7 +3,7 @@ name: bash
 on:
   workflow_dispatch:
   schedule:
-    - cron: '11 1 * * 1'
+    - cron: "11 1 * * 1"
 
 permissions:
   contents: write
@@ -21,8 +21,8 @@ jobs:
       - run: |
           bash bash.sh
 
-          git config user.name $(git log -1 --pretty=format:'%an')
-          git config user.email $(git log -1 --pretty=format:'%ae')
+          git config user.name $(git log -1 --pretty=format:"%an")
+          git config user.email $(git log -1 --pretty=format:"%ae")
           git add .
           git diff-index --quiet HEAD || git commit -m "update"
           git push
