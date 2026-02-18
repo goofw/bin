@@ -3,7 +3,7 @@ name: tmux
 on:
   workflow_dispatch:
   schedule:
-    - cron: '33 3 * * 3'
+    - cron: "33 3 * * 3"
 
 permissions:
   contents: write
@@ -21,8 +21,8 @@ jobs:
       - run: |
           bash tmux.sh
 
-          git config user.name $(git log -1 --pretty=format:'%an')
-          git config user.email $(git log -1 --pretty=format:'%ae')
+          git config user.name $(git log -1 --pretty=format:"%an")
+          git config user.email $(git log -1 --pretty=format:"%ae")
           git add .
           git diff-index --quiet HEAD || git commit -m "update"
           git push
