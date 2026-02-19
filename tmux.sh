@@ -121,6 +121,7 @@ cd -
 
 cd "${PREFIX}/.."
 cp "${PREFIX}/bin/tmux" .
+rm -rf "${PREFIX}"
 strip tmux
 file tmux
 ls -lh tmux
