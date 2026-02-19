@@ -20,8 +20,6 @@ PREFIX=/build
 mkdir -p "$PREFIX/src"
 cd "$PREFIX/src"
 
-export CC="${PREFIX}/bin/musl-gcc -static"
-
 
 ### musl
 wget "https://musl.libc.org/releases/musl-${MUSL_VERSION}.tar.gz"
@@ -36,6 +34,9 @@ cd "musl-${MUSL_VERSION}"
 make -j$(nproc)
 make install
 cd -
+
+
+export CC="${PREFIX}/bin/musl-gcc -static"
 
 
 ### libevent
