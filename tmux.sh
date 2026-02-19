@@ -1,9 +1,5 @@
 #!/bin/sh
 
-#version=$(basename $(curl -fsSL -o /dev/null -w %{url_effective} https://github.com/tmux/tmux-builds/releases/latest))
-#curl -fsSL https://github.com/tmux/tmux-builds/releases/latest/download/tmux-${version:1}-linux-x86_64.tar.gz | tar -xz tmux
-#mv tmux tmux-static
-
 #command -v bash || apk add bash
 #[ "$BASH" ] || exec bash $(readlink -f "$0")
 
