@@ -1,0 +1,71 @@
+bufferevent_filter.lo: bufferevent_filter.c evconfig-private.h \
+ /mnt/build/include/sys/types.h /mnt/build/include/features.h \
+ /mnt/build/include/bits/alltypes.h /mnt/build/include/endian.h \
+ /mnt/build/include/sys/select.h include/event2/event-config.h \
+ /mnt/build/include/sys/time.h /mnt/build/include/errno.h \
+ /mnt/build/include/bits/errno.h /mnt/build/include/stdio.h \
+ /mnt/build/include/stdlib.h /mnt/build/include/alloca.h \
+ /mnt/build/include/string.h /mnt/build/include/strings.h \
+ /mnt/build/include/stdarg.h include/event2/util.h \
+ include/event2/visibility.h /mnt/build/include/stdint.h \
+ /mnt/build/include/bits/stdint.h /mnt/build/include/stddef.h \
+ /mnt/build/include/netdb.h /mnt/build/include/netinet/in.h \
+ /mnt/build/include/inttypes.h /mnt/build/include/sys/socket.h \
+ /mnt/build/include/bits/socket.h /mnt/build/include/time.h \
+ include/event2/bufferevent.h include/event2/buffer.h \
+ /mnt/build/include/sys/uio.h include/event2/bufferevent_struct.h \
+ include/event2/event_struct.h include/event2/keyvalq_struct.h \
+ include/event2/event.h log-internal.h mm-internal.h \
+ bufferevent-internal.h defer-internal.h compat/sys/queue.h \
+ evthread-internal.h include/event2/thread.h util-internal.h \
+ /mnt/build/include/sys/eventfd.h /mnt/build/include/fcntl.h \
+ /mnt/build/include/bits/fcntl.h time-internal.h ipv6-internal.h \
+ ratelim-internal.h
+evconfig-private.h:
+/mnt/build/include/sys/types.h:
+/mnt/build/include/features.h:
+/mnt/build/include/bits/alltypes.h:
+/mnt/build/include/endian.h:
+/mnt/build/include/sys/select.h:
+include/event2/event-config.h:
+/mnt/build/include/sys/time.h:
+/mnt/build/include/errno.h:
+/mnt/build/include/bits/errno.h:
+/mnt/build/include/stdio.h:
+/mnt/build/include/stdlib.h:
+/mnt/build/include/alloca.h:
+/mnt/build/include/string.h:
+/mnt/build/include/strings.h:
+/mnt/build/include/stdarg.h:
+include/event2/util.h:
+include/event2/visibility.h:
+/mnt/build/include/stdint.h:
+/mnt/build/include/bits/stdint.h:
+/mnt/build/include/stddef.h:
+/mnt/build/include/netdb.h:
+/mnt/build/include/netinet/in.h:
+/mnt/build/include/inttypes.h:
+/mnt/build/include/sys/socket.h:
+/mnt/build/include/bits/socket.h:
+/mnt/build/include/time.h:
+include/event2/bufferevent.h:
+include/event2/buffer.h:
+/mnt/build/include/sys/uio.h:
+include/event2/bufferevent_struct.h:
+include/event2/event_struct.h:
+include/event2/keyvalq_struct.h:
+include/event2/event.h:
+log-internal.h:
+mm-internal.h:
+bufferevent-internal.h:
+defer-internal.h:
+compat/sys/queue.h:
+evthread-internal.h:
+include/event2/thread.h:
+util-internal.h:
+/mnt/build/include/sys/eventfd.h:
+/mnt/build/include/fcntl.h:
+/mnt/build/include/bits/fcntl.h:
+time-internal.h:
+ipv6-internal.h:
+ratelim-internal.h:

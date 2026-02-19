@@ -1,0 +1,78 @@
+poll.lo: poll.c include/event2/event-config.h evconfig-private.h \
+ /mnt/build/include/sys/types.h /mnt/build/include/features.h \
+ /mnt/build/include/bits/alltypes.h /mnt/build/include/endian.h \
+ /mnt/build/include/sys/select.h /mnt/build/include/sys/time.h \
+ compat/sys/queue.h /mnt/build/include/poll.h \
+ /mnt/build/include/bits/poll.h /mnt/build/include/signal.h \
+ /mnt/build/include/bits/signal.h /mnt/build/include/limits.h \
+ /mnt/build/include/bits/limits.h /mnt/build/include/stdio.h \
+ /mnt/build/include/stdlib.h /mnt/build/include/alloca.h \
+ /mnt/build/include/string.h /mnt/build/include/strings.h \
+ /mnt/build/include/unistd.h /mnt/build/include/bits/posix.h \
+ /mnt/build/include/errno.h /mnt/build/include/bits/errno.h \
+ event-internal.h /mnt/build/include/time.h include/event2/event_struct.h \
+ include/event2/util.h include/event2/visibility.h \
+ /mnt/build/include/stdint.h /mnt/build/include/bits/stdint.h \
+ /mnt/build/include/stddef.h /mnt/build/include/stdarg.h \
+ /mnt/build/include/netdb.h /mnt/build/include/netinet/in.h \
+ /mnt/build/include/inttypes.h /mnt/build/include/sys/socket.h \
+ /mnt/build/include/bits/socket.h include/event2/keyvalq_struct.h \
+ minheap-internal.h include/event2/event.h util-internal.h log-internal.h \
+ /mnt/build/include/sys/eventfd.h /mnt/build/include/fcntl.h \
+ /mnt/build/include/bits/fcntl.h time-internal.h ipv6-internal.h \
+ mm-internal.h evsignal-internal.h defer-internal.h evmap-internal.h \
+ include/event2/thread.h evthread-internal.h
+include/event2/event-config.h:
+evconfig-private.h:
+/mnt/build/include/sys/types.h:
+/mnt/build/include/features.h:
+/mnt/build/include/bits/alltypes.h:
+/mnt/build/include/endian.h:
+/mnt/build/include/sys/select.h:
+/mnt/build/include/sys/time.h:
+compat/sys/queue.h:
+/mnt/build/include/poll.h:
+/mnt/build/include/bits/poll.h:
+/mnt/build/include/signal.h:
+/mnt/build/include/bits/signal.h:
+/mnt/build/include/limits.h:
+/mnt/build/include/bits/limits.h:
+/mnt/build/include/stdio.h:
+/mnt/build/include/stdlib.h:
+/mnt/build/include/alloca.h:
+/mnt/build/include/string.h:
+/mnt/build/include/strings.h:
+/mnt/build/include/unistd.h:
+/mnt/build/include/bits/posix.h:
+/mnt/build/include/errno.h:
+/mnt/build/include/bits/errno.h:
+event-internal.h:
+/mnt/build/include/time.h:
+include/event2/event_struct.h:
+include/event2/util.h:
+include/event2/visibility.h:
+/mnt/build/include/stdint.h:
+/mnt/build/include/bits/stdint.h:
+/mnt/build/include/stddef.h:
+/mnt/build/include/stdarg.h:
+/mnt/build/include/netdb.h:
+/mnt/build/include/netinet/in.h:
+/mnt/build/include/inttypes.h:
+/mnt/build/include/sys/socket.h:
+/mnt/build/include/bits/socket.h:
+include/event2/keyvalq_struct.h:
+minheap-internal.h:
+include/event2/event.h:
+util-internal.h:
+log-internal.h:
+/mnt/build/include/sys/eventfd.h:
+/mnt/build/include/fcntl.h:
+/mnt/build/include/bits/fcntl.h:
+time-internal.h:
+ipv6-internal.h:
+mm-internal.h:
+evsignal-internal.h:
+defer-internal.h:
+evmap-internal.h:
+include/event2/thread.h:
+evthread-internal.h:
