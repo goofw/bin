@@ -21,6 +21,7 @@ jobs:
       - run: |
           #docker run --rm -v $(pwd):/mnt -w /mnt alpine sh tmux.sh
           docker run --rm -v $(pwd):/mnt -w /mnt debian:bookworm-slim bash tmux.sh
+          docker run --rm -v $(pwd):/mnt -w /mnt alpine:3.15 ./tmux-static new -d
 
           git config user.name $(git log -1 --pretty=format:"%an")
           git config user.email $(git log -1 --pretty=format:"%ae")
