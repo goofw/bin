@@ -1,2 +1,0 @@
-#!/bin/sh
-exec "${REALGCC:-gcc}" "$@" -specs "/mnt/build/lib/musl-gcc.specs"
