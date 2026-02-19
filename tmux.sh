@@ -15,6 +15,7 @@ DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
     automake \
     bison \
     build-essential \
+    file \
     git \
     tar \
     pkg-config \
@@ -124,4 +125,4 @@ strip tmux
 file tmux
 ls -lh tmux
 ./tmux -V
-ldd tmux && { rm -rf tmux; exit 255; } || mv tmux tmux-static
+ldd tmux && { rm -rf tmux; exit 1; } || mv tmux tmux-static
