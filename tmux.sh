@@ -118,4 +118,10 @@ make -j$(nproc)
 make install
 cd -
 
-cp "${PREFIX}/bin/tmux" "${PREFIX}/../tmux-static"
+cd "${PREFIX}/.."
+cp "${PREFIX}/bin/tmux" .
+strip tmux
+file tmux
+ls -lh tmux
+./tmux -V
+ldd tmux && { rm -rf tmux; exit 255; } || mv tmux tmux-static
