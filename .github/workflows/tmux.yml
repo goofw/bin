@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - run: |
-          bash tmux.sh
+          docker run --rm -v $(pwd):/mnt -w /mnt alpine sh tmux.sh
 
           git config user.name $(git log -1 --pretty=format:"%an")
           git config user.email $(git log -1 --pretty=format:"%ae")
