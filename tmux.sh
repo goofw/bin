@@ -4,19 +4,28 @@
 #curl -fsSL https://github.com/tmux/tmux-builds/releases/latest/download/tmux-${version:1}-linux-x86_64.tar.gz | tar -xz tmux
 #mv tmux tmux-static
 
-command -v bash || apk add bash
-[ "$BASH" ] || exec bash $(readlink -f "$0")
+#command -v bash || apk add bash
+#[ "$BASH" ] || exec bash $(readlink -f "$0")
 
-apk add \
-    curl \
-    build-base
+#apk add \
+#    curl \
+#    build-base
+
+DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
+    automake \
+    bison \
+    build-essential \
+    git \
+    tar \
+    pkg-config \
+    wget
 
 TMUX_VERSION=3.6a
 MUSL_VERSION=1.2.5
 LIBEVENT_VERSION=2.1.12
 NCURSES_VERSION=6.5
 
-PREFIX=/build
+PREFIX=$(dirname $(readlink -f "$0"))/build
 mkdir -p "$PREFIX/src"
 cd "$PREFIX/src"
 
@@ -109,4 +118,4 @@ make -j$(nproc)
 make install
 cd -
 
-cp ${PREFIX}/bin/tmux $(dirname $(readlink -f "$0"))/tmux-static
+cp "${PREFIX}/bin/tmux" "${PREFIX}/../tmux-static"
