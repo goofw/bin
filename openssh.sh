@@ -23,7 +23,7 @@ git checkout $(git tag --sort=-creatordate | grep -E "^V_\d+_\d+_P\d+$" | head -
 export CFLAGS="-no-pie"
 #export LDFLAGS="-L. -Lopenbsd-compat/ -static"
 export LDFLAGS="-static -no-pie"
-./configure #LDFLAGS="-static"
+./configure --with-pie=no #LDFLAGS="-static"
 make -j$(nproc)
 
 
