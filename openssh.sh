@@ -19,9 +19,9 @@ git checkout $(git tag --sort=-creatordate | grep -E "^V_\d+_\d+_P\d+$" | head -
 # https://stackoverflow.com/a/59473090
 export CC="cc -no-pie"
 # export CFLAGS="-no-pie"
-export LDFLAGS="-static"
+#export LDFLAGS="-L. -Lopenbsd-compat/ -static"
 ./configure #LDFLAGS="-static"
-make -j$(nproc) #LDFLAGS="-static"
+make -j$(nproc) LDFLAGS="-L. -Lopenbsd-compat/ -static"
 
 
 find . -maxdepth 1 -type f -executable
