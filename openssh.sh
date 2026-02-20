@@ -2,7 +2,7 @@
 
 apk add curl perl build-base autoconf automake linux-headers
 
-ZLIB_VERSION=1.3.1
+ZLIB_VERSION=1.3.2
 OPENSSL_VERSION=3.2.0
 OPENSSH_VERSION=V_9_6_P1
 
