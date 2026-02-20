@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@main
       - run: |
           docker run --rm -v $(pwd):/mnt -w /mnt alpine sh curl.sh
+          docker run --rm -v $(pwd):/mnt -w /mnt alpine:3.15 ./curl-static -fsSL https://curl.se
 
           git config user.name $(git log -1 --pretty=format:"%an")
           git config user.email $(git log -1 --pretty=format:"%ae")
