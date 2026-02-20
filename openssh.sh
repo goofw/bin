@@ -18,13 +18,13 @@ cd openssh-portable
 git checkout $(git tag --sort=-creatordate | grep -E "^V_\d+_\d+_P\d+$" | head -1)
 
 # https://stackoverflow.com/a/59473090
-export CC=clang
+# export CC=clang
 # export CC="cc -no-pie"
-# export CFLAGS="-no-pie"
+export CFLAGS="-no-pie"
 #export LDFLAGS="-L. -Lopenbsd-compat/ -static"
-#export LDFLAGS="-static"
+export LDFLAGS="-static -no-pie"
 ./configure #LDFLAGS="-static"
-LDFLAGS="-static" make -j$(nproc)
+make -j$(nproc)
 
 
 find . -maxdepth 1 -type f -executable
