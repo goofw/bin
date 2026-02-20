@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# this script should be run in bare alpine image
+# this script should be run in a bare alpine image
 
 # https://github.com/tmux/tmux/wiki/Installing#from-source-tarball
 apk add \
