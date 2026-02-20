@@ -31,7 +31,7 @@ OPENSSH_URL="https://github.com/openssh/openssh-portable/archive/refs/tags/${OPE
 OPENSSH_CHECKFILE="bin/ssh"
 #Make sure it ends up in $root/bin, that it drops privileges and that it should use the OpenSSL instead of the one that comes with the ssh source code
 #OPENSSH_BUILD_COMMANDS="autoreconf && ./configure --prefix=\"$root\" --exec-prefix=\"$root\" --with-privsep-user=nobody --with-ssl-dir=\"$root\" && make -j$(nproc) && make install"
-OPENSSH_BUILD_COMMANDS="autoreconf && ./configure --prefix=\"$root\" --exec-prefix=\"$root\" --with-privsep-user=nobody" && make -j$(nproc) && make install"
+OPENSSH_BUILD_COMMANDS="autoreconf && ./configure --prefix=\"$root\" --exec-prefix=\"$root\" --with-privsep-user=nobody && make -j$(nproc) && make install"
 
 #read -p "We will be working in $top, things might get messy (t)here. Press Ctrl+C to cancel now or Enter to continue" ignorethisvariable
 
