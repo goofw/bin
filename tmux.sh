@@ -1,125 +1,39 @@
 #!/bin/sh
 
-#command -v bash || apk add bash
-#[ "$BASH" ] || exec bash $(readlink -f "$0")
+# this script should be run in bare alpine image
 
-#apk add \
-#    curl \
-#    build-base
-
-DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
-    automake \
+# https://github.com/tmux/tmux/wiki/Installing#from-source-tarball
+apk add \
+    build-base \
     bison \
-    build-essential \
-    file \
-    git \
-    tar \
-    pkg-config \
-    wget
+    libevent-dev \
+    libevent-static \
+    ncurses-dev \
+    ncurses-static \
+    ncurses-terminfo-base
 
-TMUX_VERSION=3.6a
-MUSL_VERSION=1.2.5
-LIBEVENT_VERSION=2.1.12
-NCURSES_VERSION=6.5
+VERSION=$(basename $(curl -fsSL -o /dev/null -w %{url_effective} https://github.com/tmux/tmux/releases/latest))
+wget -q "https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz"
+tar -xzf "tmux-${VERSION}.tar.gz"
+cd "tmux-${VERSION}"
 
-PREFIX=$(dirname $(readlink -f "$0"))/build
-mkdir -p "$PREFIX/src"
-cd "$PREFIX/src"
-
-
-### musl
-wget "https://musl.libc.org/releases/musl-${MUSL_VERSION}.tar.gz"
-tar xzf "musl-${MUSL_VERSION}.tar.gz"
-cd "musl-${MUSL_VERSION}"
-
-./configure \
-    --enable-gcc-wrapper \
-    --disable-shared \
-    --prefix="${PREFIX}"
-
+# https://stackoverflow.com/a/59473090
+export CFLAGS="-no-pie"
+./configure --enable-static
 make -j$(nproc)
-make install
-cd -
+mv tmux ..
+cd ..
 
-
-export CC="${PREFIX}/bin/musl-gcc -static"
-
-
-### libevent
-wget "https://github.com/libevent/libevent/releases/download/release-${LIBEVENT_VERSION}-stable/libevent-${LIBEVENT_VERSION}-stable.tar.gz"
-tar xzf "libevent-${LIBEVENT_VERSION}-stable.tar.gz"
-cd "libevent-${LIBEVENT_VERSION}-stable"
-
-./configure \
-    --prefix="$PREFIX" \
-    --includedir=${PREFIX}/include \
-    --libdir=${PREFIX}/lib \
-    --disable-shared \
-    --disable-openssl \
-    --disable-libevent-regress \
-    --disable-samples
-
-make -j$(nproc)
-make install
-cd -
-
-
-### ncurses
-wget "https://invisible-island.net/archives/ncurses/ncurses-${NCURSES_VERSION}.tar.gz"
-tar xzf "ncurses-${NCURSES_VERSION}.tar.gz"
-cd "ncurses-${NCURSES_VERSION}"
-
-./configure \
-    --prefix=${PREFIX} \
-    --includedir=${PREFIX}/include \
-    --libdir=${PREFIX}/lib \
-    --without-ada \
-    --without-cxx \
-    --without-cxx-binding \
-    --without-tests \
-    --without-manpages \
-    --without-debug \
-    --disable-lib-suffixes \
-    --disable-db-install \
-    --with-termlib \
-    --with-default-terminfo-dir=/usr/share/terminfo \
-    --with-terminfo-dirs=/etc/terminfo:/lib/terminfo:/usr/share/terminfo \
-    --with-fallbacks="screen screen-256color tmux tmux-256color xterm xterm-256color"
-
-
-make -j$(nproc)
-make install
-cd -
-
-
-### tmux
-wget "https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz"
-tar xzf "tmux-${TMUX_VERSION}.tar.gz"
-cd "tmux-${TMUX_VERSION}"
-
-./configure \
-    --enable-static \
-    --prefix=${PREFIX} \
-    --includedir="${PREFIX}/include" \
-    --libdir="${PREFIX}/lib" \
-    LIBEVENT_LIBS="-L${PREFIX}/lib -levent" \
-    LIBNCURSES_CFLAGS="-I${PREFIX}/include/ncurses" \
-    LIBNCURSES_LIBS="-L${PREFIX}/lib -lncurses" \
-    LIBTINFO_CFLAGS="-I${PREFIX}/include/ncurses" \
-    LIBTINFO_LIBS="-L${PREFIX}/lib -ltinfo" \
-    CFLAGS="-I${PREFIX}/include" \
-    LDFLAGS="-L${PREFIX}/lib" \
-    CPPFLAGS="-I${PREFIX}/include"
-
-make -j$(nproc)
-make install
-cd -
-
-cd "${PREFIX}/.."
-cp "${PREFIX}/bin/tmux" .
-rm -rf "${PREFIX}"
 strip tmux
 file tmux
 ls -lh tmux
 ./tmux -V
 ldd tmux && { rm -rf tmux; exit 1; } || mv tmux tmux-static
+
+# terminfo is not embeded in ncurses
+# package terminfo instead of compiling ncurses --with-fallbacks="xterm xterm-256color"
+# export TERM=xterm-256color TERMINFO=/path/to/terminfo; tmux should work
+cd /etc
+tar -zcf terminfo.tar.gz terminfo
+cd -
+mv terminfo.tar.gz .
