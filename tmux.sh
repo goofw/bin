@@ -4,6 +4,7 @@
 
 # https://github.com/tmux/tmux/wiki/Installing#from-source-tarball
 apk add \
+    curl \
     build-base \
     bison \
     libevent-dev \
@@ -13,8 +14,7 @@ apk add \
     ncurses-terminfo-base
 
 VERSION=$(basename $(curl -fsSL -o /dev/null -w %{url_effective} https://github.com/tmux/tmux/releases/latest))
-wget -q "https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz"
-tar -xzf "tmux-${VERSION}.tar.gz"
+curl -fsSL "https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz" | tar -xz
 cd "tmux-${VERSION}"
 
 # https://stackoverflow.com/a/59473090
