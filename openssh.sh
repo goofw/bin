@@ -5,6 +5,7 @@
 # https://github.com/openssh/openssh-portable#building-portable-openssh
 # https://gist.github.com/fumiyas/b4aaee83e113e061d1ee8ab95b35608b
 apk add \
+    clang \
     git \
     build-base \
     openssl-dev \
@@ -17,11 +18,13 @@ cd openssh-portable
 git checkout $(git tag --sort=-creatordate | grep -E "^V_\d+_\d+_P\d+$" | head -1)
 
 # https://stackoverflow.com/a/59473090
-export CC="cc -no-pie"
+export CC=clang
+# export CC="cc -no-pie"
 # export CFLAGS="-no-pie"
 #export LDFLAGS="-L. -Lopenbsd-compat/ -static"
+export LDFLAGS="-static"
 ./configure #LDFLAGS="-static"
-make -j$(nproc) LDFLAGS="-L. -Lopenbsd-compat/ -static"
+make -j$(nproc) #LDFLAGS="-static"
 
 
 find . -maxdepth 1 -type f -executable
