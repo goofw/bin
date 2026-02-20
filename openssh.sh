@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-apk add curl perl build-base autoconf automake linux-headers
+apk add curl perl build-base autoconf automake linux-headers zlib-dev zlib-static
 
 ZLIB_VERSION=1.3.2
 OPENSSL_VERSION=3.2.0
@@ -69,7 +69,7 @@ build() {
     cd "$top"
 }
 
-build "ZLIB" "$ZLIB_VERSION" "$ZLIB_DIR" "$ZLIB_TGZ" "$ZLIB_URL" "$ZLIB_CHECKFILE" "$ZLIB_BUILD_COMMANDS"
+#build "ZLIB" "$ZLIB_VERSION" "$ZLIB_DIR" "$ZLIB_TGZ" "$ZLIB_URL" "$ZLIB_CHECKFILE" "$ZLIB_BUILD_COMMANDS"
 build "OpenSSL" "$OPENSSL_VERSION" "$OPENSSL_DIR" "$OPENSSL_TGZ" "$OPENSSL_URL" "$OPENSSL_CHECKFILE" "$OPENSSL_BUILD_COMMANDS"
 build "OpenSSH" "$OPENSSH_VERSION" "$OPENSSH_DIR" "$OPENSSH_TGZ" "$OPENSSH_URL" "$OPENSSH_CHECKFILE" "$OPENSSH_BUILD_COMMANDS"
 
