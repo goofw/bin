@@ -14,12 +14,16 @@ apk add \
 
 git clone https://github.com/openssh/openssh-portable
 cd openssh-portable
+# newest tag with name like "V_10_2_P1"
 git checkout $(git tag --sort=-creatordate | grep -E "^V_\d+_\d+_P\d+$" | head -1)
 
 # https://stackoverflow.com/a/59473090
+# for gcc to compile a statically linked binary, it needs two flags: -static and -no-pie
+# these flags can be added to: CC, CFLAGS or LDFLAGS
+# somehow, CFLAGS doesn't work when building the actual binaries
+export LDFLAGS="-static -no-pie"
 
-export CC="cc -static -no-pie"
-# export LDFLAGS="-static -no-pie"
+# without specify --with-pie=no, it will add a -pie at the end, override any -no-pie
 ./configure --with-pie=no
 make -j$(nproc)
 
