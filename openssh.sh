@@ -38,9 +38,10 @@ OPENSSH_BUILD_COMMANDS="./configure && make -j$(nproc)"
 set -uex    # Show each command before executing it and exits when a command returns a non-zero exit code or a variable is used without being set
 # umask 0077  # Make sure that no one except the owner can read, write, or execute newly created files
 
-export "CPPFLAGS=-no-pie"; export "CFLAGS=$CPPFLAGS"
+#export "CPPFLAGS=-no-pie"; export "CFLAGS=$CPPFLAGS"
 #export "CPPFLAGS=-I$root/include -L. -fPIC -pthread -no-pie"; export "CFLAGS=$CPPFLAGS" # Compiler will look for headers in $root/include, libraries in the current directory and generate position-independent code and use pthreads
 #export "LDFLAGS=-L$root/lib -L$root/lib64 -static" # Linker will look for libraries in $root/lib and $root/lib64 and link statically
+export CFLAGS="-no-pie"
 export "LDFLAGS=-static"
 
 #Check if everything needed is available
