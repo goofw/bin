@@ -38,7 +38,7 @@ OPENSSH_BUILD_COMMANDS="./configure && make -j$(nproc)"
 set -uex    # Show each command before executing it and exits when a command returns a non-zero exit code or a variable is used without being set
 # umask 0077  # Make sure that no one except the owner can read, write, or execute newly created files
 
-export "CPPFLAGS=-fPIC -pthread"; export "CFLAGS=$CPPFLAGS"
+export "CPPFLAGS=-no-pie"; export "CFLAGS=$CPPFLAGS"
 #export "CPPFLAGS=-I$root/include -L. -fPIC -pthread -no-pie"; export "CFLAGS=$CPPFLAGS" # Compiler will look for headers in $root/include, libraries in the current directory and generate position-independent code and use pthreads
 #export "LDFLAGS=-L$root/lib -L$root/lib64 -static" # Linker will look for libraries in $root/lib and $root/lib64 and link statically
 export "LDFLAGS=-static"
@@ -76,11 +76,12 @@ build() {
 #build "OpenSSL" "$OPENSSL_VERSION" "$OPENSSL_DIR" "$OPENSSL_TGZ" "$OPENSSL_URL" "$OPENSSL_CHECKFILE" "$OPENSSL_BUILD_COMMANDS"
 build "OpenSSH" "$OPENSSH_VERSION" "$OPENSSH_DIR" "$OPENSSH_TGZ" "$OPENSSH_URL" "$OPENSSH_CHECKFILE" "$OPENSSH_BUILD_COMMANDS"
 
-echo "Everything done. You can find the statically linked OpenSSH binaries in $root/bin"
+#echo "Everything done. You can find the statically linked OpenSSH binaries in $root/bin"
 
-find . -type f -executable
+cd $build/$OPENSSH_DIR
+find . -maxdepth 1 -type f -executable
 
-#file $root/bin/ssh
-#ldd $root/bin/ssh
-#file $root/sbin/sshd
-#ldd $root/sbin/sshd
+file ssh
+ldd ssh
+file sshd
+ldd sshd
