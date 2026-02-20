@@ -21,16 +21,33 @@ git checkout $(git tag --sort=-creatordate | grep -E "^V_\d+_\d+_P\d+$" | head -
 # for gcc to compile a statically linked binary, it needs two flags: -static and -no-pie
 # these flags can be added to: CC, CFLAGS or LDFLAGS
 # somehow, CFLAGS doesn't work when building the actual binaries
+# so both flags got added to LDFLAGS
 export LDFLAGS="-static -no-pie"
 
-# without specify --with-pie=no, it will add a -pie at the end, override any -no-pie
+# without setting --with-pie=no explicitly, it will add a -pie at the end of the building command
+# override any -no-pie settings from CC, CFLAGS or LDFLAGS
 ./configure --with-pie=no
-make -j$(nproc)
 
+# two extra libraries are being built in the process
+# ./libssh.a and ./openbsd-compat/libopenbsd-compat.a
+# somewhere -L. -Lopenbsd-compat/ got added to LDFLAGS so they can be used
+# BUT setting LDFLAGS here like 'make -j4 LDFLAGS="-static -no-pie"'
+# will override "-L. -Lopenbsd-compat/" somehow
+# overall, very confusing CFLAGS and LDFLAGS behavior
+make -j$(nproc)
 
 find . -maxdepth 1 -type f -executable
 
-file ssh
-ldd ssh
-file sshd
-ldd sshd
+FILES="sshd ssh scp sftp ssh-add ssh-agent ssh-keygen"
+mkdir -p ../openssh-static
+mv  $FILES ../openssh-static
+cd ..
+rm -rf openssh-portable
+
+for FILE in $FILES; do
+    strip $FILE
+    file $FILE
+    ls -lh $FILE
+    $FILE -V || true
+    ldd $FILE || true
+done
