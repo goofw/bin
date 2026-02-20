@@ -1,0 +1,28 @@
+name: sshpass
+
+on:
+  workflow_dispatch:
+  #schedule:
+  #  - cron: "0 0 * * 0"
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: "sshpass"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - run: |
+          docker run --rm -v $(pwd):/mnt -w /mnt alpine sh openssh.sh
+
+          git config user.name $(git log -1 --pretty=format:"%an")
+          git config user.email $(git log -1 --pretty=format:"%ae")
+          git add .
+          git diff-index --quiet HEAD || git commit -m "update"
+          git push
