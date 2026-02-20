@@ -31,7 +31,7 @@ OPENSSH_URL="https://github.com/openssh/openssh-portable/archive/refs/tags/${OPE
 OPENSSH_CHECKFILE="bin/ssh"
 #Make sure it ends up in $root/bin, that it drops privileges and that it should use the OpenSSL instead of the one that comes with the ssh source code
 #OPENSSH_BUILD_COMMANDS="autoreconf && ./configure --prefix=\"$root\" --exec-prefix=\"$root\" --with-privsep-user=nobody --with-ssl-dir=\"$root\" && make -j$(nproc) && make install"
-OPENSSH_BUILD_COMMANDS="autoreconf && ./configure && make -j$(nproc) && make install"
+OPENSSH_BUILD_COMMANDS="./configure && make -j$(nproc)"
 
 #read -p "We will be working in $top, things might get messy (t)here. Press Ctrl+C to cancel now or Enter to continue" ignorethisvariable
 
@@ -78,10 +78,9 @@ build "OpenSSH" "$OPENSSH_VERSION" "$OPENSSH_DIR" "$OPENSSH_TGZ" "$OPENSSH_URL" 
 
 echo "Everything done. You can find the statically linked OpenSSH binaries in $root/bin"
 
-find . -name "libopenbsd-compat.a"
-find . -name "libssh.a"
+find . -type f -executable
 
-file $root/bin/ssh
-ldd $root/bin/ssh
-file $root/sbin/sshd
-ldd $root/sbin/sshd
+#file $root/bin/ssh
+#ldd $root/bin/ssh
+#file $root/sbin/sshd
+#ldd $root/sbin/sshd
