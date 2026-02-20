@@ -21,8 +21,10 @@ cd "tmux-${VERSION}"
 export CFLAGS="-no-pie"
 ./configure --enable-static
 make -j$(nproc)
+
 mv tmux ..
 cd ..
+rm -rf "tmux-${VERSION}"
 
 strip tmux
 file tmux
