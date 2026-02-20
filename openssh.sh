@@ -40,7 +40,8 @@ set -uex    # Show each command before executing it and exits when a command ret
 
 export "CPPFLAGS=-fPIC -pthread"; export "CFLAGS=$CPPFLAGS"
 #export "CPPFLAGS=-I$root/include -L. -fPIC -pthread -no-pie"; export "CFLAGS=$CPPFLAGS" # Compiler will look for headers in $root/include, libraries in the current directory and generate position-independent code and use pthreads
-export "LDFLAGS=-L$root/lib -L$root/lib64 -static" # Linker will look for libraries in $root/lib and $root/lib64 and link statically
+#export "LDFLAGS=-L$root/lib -L$root/lib64 -static" # Linker will look for libraries in $root/lib and $root/lib64 and link statically
+export "LDFLAGS=-static"
 
 #Check if everything needed is available
 autoreconf --version || { echo "You still need to install autoconf"; exit 1; }
