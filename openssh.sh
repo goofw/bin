@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-apk add curl perl build-base autoconf automake
+apk add curl perl build-base autoconf automake linux-headers
 
 ZLIB_VERSION=1.3.1
 OPENSSL_VERSION=3.2.0
