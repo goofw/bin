@@ -49,6 +49,8 @@ for FILE in $FILES; do
     strip $FILE
     file $FILE
     ls -lh $FILE
-    ./$FILE -V || true
     ldd $FILE || true
 done
+
+./sshd -V
+./ssh -V
