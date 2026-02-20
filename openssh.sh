@@ -17,25 +17,25 @@ ZLIB_TGZ="$ZLIB_DIR.tar.gz"
 ZLIB_URL="https://zlib.net/${ZLIB_TGZ}"
 ZLIB_CHECKFILE="lib/libz.a"
 #Make sure it ends up in $root/lib(64), --static is needed because zlib doesn't like that you build static if you don't mention it before
-ZLIB_BUILD_COMMANDS="./configure --prefix=\"$root\" --static && make && make install"
+ZLIB_BUILD_COMMANDS="./configure --prefix=\"$root\" --static && make -j$(nproc) && make install"
 
 OPENSSL_DIR="openssl-${OPENSSL_VERSION}"
 OPENSSL_TGZ="$OPENSSL_DIR.tar.gz"
 OPENSSL_URL="https://www.openssl.org/source/${OPENSSL_TGZ}"
 OPENSSL_CHECKFILE="bin/openssl"
-OPENSSL_BUILD_COMMANDS="./config --prefix=\"$root\" no-tests && make && make install" #Make sure it ends up in $root/lib(64) and don't waste time with tests
+OPENSSL_BUILD_COMMANDS="./config --prefix=\"$root\" no-tests && make -j$(nproc) && make install" #Make sure it ends up in $root/lib(64) and don't waste time with tests
 
 OPENSSH_DIR="openssh-portable-${OPENSSH_VERSION}"
 OPENSSH_TGZ="$OPENSSH_DIR.tar.gz"
 OPENSSH_URL="https://github.com/openssh/openssh-portable/archive/refs/tags/${OPENSSH_VERSION}.tar.gz"
 OPENSSH_CHECKFILE="bin/ssh"
 #Make sure it ends up in $root/bin, that it drops privileges and that it should use the OpenSSL instead of the one that comes with the ssh source code
-OPENSSH_BUILD_COMMANDS="autoreconf && ./configure --prefix=\"$root\" --exec-prefix=\"$root\" --with-privsep-user=nobody --with-ssl-dir=\"$root\" && make && make install"
+OPENSSH_BUILD_COMMANDS="autoreconf && ./configure --prefix=\"$root\" --exec-prefix=\"$root\" --with-privsep-user=nobody --with-ssl-dir=\"$root\" && make -j$(nproc) && make install"
 
 #read -p "We will be working in $top, things might get messy (t)here. Press Ctrl+C to cancel now or Enter to continue" ignorethisvariable
 
 set -uex    # Show each command before executing it and exits when a command returns a non-zero exit code or a variable is used without being set
-umask 0077  # Make sure that no one except the owner can read, write, or execute newly created files
+# umask 0077  # Make sure that no one except the owner can read, write, or execute newly created files
 
 export "CPPFLAGS=-I$root/include -L. -fPIC -pthread"; export "CFLAGS=$CPPFLAGS" # Compiler will look for headers in $root/include, libraries in the current directory and generate position-independent code and use pthreads
 export "LDFLAGS=-L$root/lib -L$root/lib64 -static" # Linker will look for libraries in $root/lib and $root/lib64 and link statically
@@ -74,3 +74,8 @@ build "OpenSSL" "$OPENSSL_VERSION" "$OPENSSL_DIR" "$OPENSSL_TGZ" "$OPENSSL_URL" 
 build "OpenSSH" "$OPENSSH_VERSION" "$OPENSSH_DIR" "$OPENSSH_TGZ" "$OPENSSH_URL" "$OPENSSH_CHECKFILE" "$OPENSSH_BUILD_COMMANDS"
 
 echo "Everything done. You can find the statically linked OpenSSH binaries in $root/bin"
+
+file $root/bin/ssh
+ldd $root/bin/ssh
+file $root/sbin/sshd
+ldd $root/sbin/sshd
