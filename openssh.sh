@@ -24,7 +24,7 @@ export CC=clang
 #export LDFLAGS="-L. -Lopenbsd-compat/ -static"
 #export LDFLAGS="-static"
 ./configure #LDFLAGS="-static"
-make -j$(nproc) #LDFLAGS="-static"
+LDFLAGS="-static" make -j$(nproc)
 
 
 find . -maxdepth 1 -type f -executable
