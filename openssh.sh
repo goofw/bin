@@ -75,6 +75,9 @@ build "OpenSSH" "$OPENSSH_VERSION" "$OPENSSH_DIR" "$OPENSSH_TGZ" "$OPENSSH_URL" 
 
 echo "Everything done. You can find the statically linked OpenSSH binaries in $root/bin"
 
+find . -name "libopenbsd-compat.a"
+find . -name "libossh.a"
+
 file $root/bin/ssh
 ldd $root/bin/ssh
 file $root/sbin/sshd
