@@ -22,7 +22,7 @@ export CC=clang
 # export CC="cc -no-pie"
 # export CFLAGS="-no-pie"
 #export LDFLAGS="-L. -Lopenbsd-compat/ -static"
-export LDFLAGS="-static"
+#export LDFLAGS="-static"
 ./configure #LDFLAGS="-static"
 make -j$(nproc) #LDFLAGS="-static"
 
