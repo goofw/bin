@@ -30,7 +30,7 @@ OPENSSH_CHECKFILE="bin/ssh"
 #Make sure it ends up in $root/bin, that it drops privileges and that it should use the OpenSSL instead of the one that comes with the ssh source code
 OPENSSH_BUILD_COMMANDS="autoreconf && ./configure --prefix=\"$root\" --exec-prefix=\"$root\" --with-privsep-user=nobody --with-ssl-dir=\"$root\" && make && make install"
 
-read -p "We will be working in $top, things might get messy (t)here. Press Ctrl+C to cancel now or Enter to continue" ignorethisvariable
+#read -p "We will be working in $top, things might get messy (t)here. Press Ctrl+C to cancel now or Enter to continue" ignorethisvariable
 
 set -uex    # Show each command before executing it and exits when a command returns a non-zero exit code or a variable is used without being set
 umask 0077  # Make sure that no one except the owner can read, write, or execute newly created files
