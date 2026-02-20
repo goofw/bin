@@ -30,8 +30,8 @@ ls -lh tmux
 ./tmux -V
 ldd tmux && { rm -rf tmux; exit 1; } || mv tmux tmux-static
 
-# terminfo is not embedded in ncurses
-# package terminfo instead of compiling ncurses --with-fallbacks="xterm xterm-256color"
+# terminfo is not embedded in ncurses-static
+# package terminfo instead of recompiling ncurses --with-fallbacks="xterm xterm-256color"
 # export TERM=xterm-256color TERMINFO=/path/to/terminfo; tmux should work
 cd /etc
 tar -zcf terminfo.tar.gz terminfo
