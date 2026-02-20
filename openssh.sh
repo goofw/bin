@@ -17,7 +17,8 @@ cd openssh-portable
 git checkout $(git tag --sort=-creatordate | grep -E "^V_\d+_\d+_P\d+$" | head -1)
 
 # https://stackoverflow.com/a/59473090
-export CFLAGS="-no-pie"
+export CC="cc -no-pie"
+# export CFLAGS="-no-pie"
 # export LDFLAGS="-static"
 ./configure LDFLAGS="-static"
 make -j$(nproc) LDFLAGS="-static"
